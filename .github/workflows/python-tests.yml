@@ -17,7 +17,7 @@ jobs:
 
       - name: Set up Python
         uses: actions/setup-python@v5
-        with:
+        with: 
           python-version: "3.11"
 
       - name: Set up Google Chrome
