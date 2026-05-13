@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Лента</h2>
+<p class="muted">Посты хранятся в SQLite, изображения — в папке uploads/.</p>
+
+<div class="grid">
+  {% for p in posts %}
+    <div class="card">
+      <div class="card-header">
+        <div class="userline">
+          <div class="avatar"></div>
+          <div class="username">{{ p.user }}</div>
+        </div>
+        <div class="time">#{{ p.id }}</div>
+      </div>
+
+      {% if p.text %}
+        <div class="text">{{ p.text }}</div>
+      {% endif %}
+
+      {% if p.media %}
+        <div class="media">
+          <img src="/uploads/{{ p.media }}" alt="media">
+        </div>
+      {% endif %}
+
+      <div class="actions">
+        <a class="btn" href="/post/new">➕ Создать ещё</a>
+
+        {% if user == p.user %}
+          <form method="post" action="/post/delete/{{ p.id }}" style="margin:0;">
+            <button class="btn btn-danger" type="submit">🗑 Delete</button>
+          </form>
+        {% else %}
+          <span class="pill">только автор удаляет</span>
+        {% endif %}
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+{% if not posts %}
+  <div class="card">
+    <h2>Пока пусто</h2>
+    <p class="muted">Создайте первый пост, добавьте картинку и проверьте интеграцию.</p>
+    {% if user %}
+      <a class="btn btn-primary" href="{{ url_for('new_post') }}">➕ Новый пост</a>
+    {% else %}
+      <a class="btn btn-primary" href="{{ url_for('register') }}">Начать</a>
+    {% endif %}
+  </div>
+{% endif %}
+
+{% endblock %}

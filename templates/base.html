@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>MediaHub Lab</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <div class="logo"></div>
+      <div>MediaHub QA Lab</div>
+    </div>
+
+    <nav class="nav">
+      <a class="btn" href="{{ url_for('index') }}">🏠 Лента</a>
+
+      {% if user %}
+        <span class="pill">👤 {{ user }}</span>
+        <a class="btn btn-primary" href="{{ url_for('new_post') }}">➕ Новый пост</a>
+        <a class="btn" href="{{ url_for('logout') }}">Выйти</a>
+      {% else %}
+        <a class="btn" href="{{ url_for('login') }}">Вход</a>
+        <a class="btn btn-primary" href="{{ url_for('register') }}">Регистрация</a>
+      {% endif %}
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  {% with messages=get_flashed_messages() %}
+    {% if messages %}
+      <div class="flash">
+        {% for m in messages %}
+          <div class="flash-item info">{{ m }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  {% block content %}{% endblock %}
+</main>
+
+</body>
+</html>
