@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Новый пост</h2>
+
+<form class="form" method="post" enctype="multipart/form-data">
+  <label>Текст</label>
+  <textarea name="text" rows="4" placeholder="Напишите что-нибудь..."></textarea>
+
+  <label>Изображение (jpg/png/webp/gif, до 5MB)</label>
+  <input type="file" name="media" accept="image/*">
+
+  <button class="btn btn-primary" type="submit">Опубликовать</button>
+  <div class="footer-note">Подсказка для QA: попробуйте большой файл, неправильный формат и двойной клик.</div>
+</form>
+{% endblock %}
